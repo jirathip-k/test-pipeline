@@ -2,7 +2,6 @@ from pathlib import Path
 from typing import Any
 from pandas import Series, DataFrame
 from prefect import task, Task, flow, get_run_logger
-from prefect.tasks import task_input_hash
 from dataclasses import dataclass
 
 @dataclass
@@ -31,8 +30,12 @@ class Port:
     def process_data(self):
         return self.cal_fn.map(self.data)
 
+def cache_data_x(context, parameters):
+    logger = get_run_logger()
+    logger.info(parameters)
+    return parameters["data"]
 
-@task(cache_key_fn=task_input_hash)
+@task(cache_key_fn=cache_data_x)
 def cal(data: Data):
     logger = get_run_logger()
     logger.info(f"Calculating {data.to_dict()}")
