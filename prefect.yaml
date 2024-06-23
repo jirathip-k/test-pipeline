@@ -6,41 +6,34 @@
 name: test-pipeline
 prefect-version: 2.19.5
 
-# build section allows you to manage and build docker images
-build:
-
-# push section allows you to manage if and how this project is uploaded to remote locations
-push:
-
-# pull section allows you to provide instructions for cloning this project in remote locations
 pull:
-- prefect.deployments.steps.git_clone:
-    repository: https://github.com/jirathip-k/test-pipeline.git
-    branch: main
-    access_token:
+  - prefect.deployments.steps.git_clone:
+      repository: https://github.com/jirathip-k/test-pipeline.git
+      branch: main
+      access_token:
 
 # the deployments section allows you to provide configuration for deploying flows
 deployments:
-- name:
-  version:
-  tags: []
-  description:
-  schedule: {}
-  flow_name:
-  entrypoint:
-  parameters: {}
-  work_pool:
-    name:
-    work_queue_name:
-    job_variables: {}
-- name: test
-  version:
-  tags: []
-  description:
-  entrypoint: src/test_pipeline/main.py:process_port
-  parameters: {}
-  work_pool:
-    name: test
-    work_queue_name:
-    job_variables: {}
-  schedules: []
+  - name:
+    version:
+    tags: []
+    description:
+    schedule: {}
+    flow_name:
+    entrypoint:
+    parameters: {}
+    work_pool:
+      name:
+      work_queue_name:
+      job_variables: {}
+  - name: test
+    version:
+    tags: []
+    description:
+    entrypoint: src/test_pipeline/main.py:process_port
+    parameters: {}
+    work_pool:
+      name: test
+      work_queue_name:
+      job_variables: {}
+    schedules: []

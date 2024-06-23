@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import Any
 from pandas import Series, DataFrame
 from prefect import task, Task, flow, get_run_logger
@@ -41,6 +42,8 @@ def cal(data: Data):
 
 @flow
 def process_port():
+    logger = get_run_logger()
+    logger.info(f"{Path.cwd()}")
     port = Port(cal)
     return port.process_data()
 
