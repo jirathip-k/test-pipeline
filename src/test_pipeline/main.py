@@ -32,8 +32,8 @@ class Port:
 
 def cache_data_x(context, parameters):
     logger = get_run_logger()
-    logger.info(parameters)
-    return parameters["data"]
+    logger.info(parameters["data"].to_dict())
+    return str(parameters["data"].to_dict())
 
 @task(cache_key_fn=cache_data_x)
 def cal(data: Data):
